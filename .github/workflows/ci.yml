@@ -1,0 +1,97 @@
+name: taja-monorepo CI/CD
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+# 동일한 브랜치에서 여러 워크플로우가 동시에 실행되는 것을 방지
+# 새로운 커밋이 푸시되면 이전에 실행 중이던 작업은 자동으로 취소됨
+concurrency:
+  group: taja-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # 1단계: 코드 품질 검증 및 빌드 테스트
+  test:
+    name: 빌드 테스트 및 빌드 확인
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+    steps:
+      # 저장소 코드 체크아웃
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Node.js 환경 설정 (npm 캐시 활성화로 설치 속도 향상)
+      - name: Node.js 환경 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      # 의존성 설치 (npm ci는 package-lock.json 기반으로 정확히 설치)
+      - name: 의존성 설치
+        run: npm ci
+
+      # ESLint로 코드 스타일 검사
+      - name: ESLint로 코드 스타일 검사
+        run: npm run lint
+
+      # Next.js 빌드가 정상적으로 되는지 확인
+      - name: Build (sanity check)
+        run: npm run build
+
+  # 2단계: PR 생성 시 미리보기 환경 배포
+  preview:
+    name: PR 미리보기 환경 배포
+    needs: test # test job이 성공해야만 실행
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # PR에 댓글을 달기 위해 필요
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Vercel Preview 환경에 배포
+      - name: Vercel Preview 환경 배포
+        id: vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: "" # --prod 옵션이 없으면 Preview 배포
+          working-directory: "."
+
+      # PR에 미리보기 URL을 댓글로 남김
+      - name: PR 미리보기 URL 댓글
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            🚀 **Vercel Preview** for **taja**
+            URL: ${{ steps.vercel.outputs.preview-url }}
+
+  # 3단계: main 브랜치에 머지되면 프로덕션 배포
+  production:
+    name: 프로덕션 환경 배포 (main, develop)
+    needs: test # test job이 성공해야만 실행
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Vercel 프로덕션 환경에 배포
+      - name: Vercel 프로덕션 환경 배포
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: "--prod" # 프로덕션 배포 옵션
+          working-directory: "."
