@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
@@ -22,13 +22,48 @@ jobs:
           node-version: "20"
           cache: "pnpm"
 
-      - run: pnpm install
+      - name: 의존성 설치
+        run: pnpm install
 
-      - name: 린트 & 타입 체크
-        run: |
-          pnpm run lint --filter=web
-          pnpm run type-check --filter=web
+      - name: 린트 검사
+        run: pnpm run lint --filter=web
+
+      - name: 타입 체크
+        run: pnpm run type-check --filter=web
 
       - name: 빌드 테스트
         run: pnpm run build --filter=web
-# 배포는 Vercel Git Integration에 맡김
+
+  preview:
+    name: Preview 배포
+    needs: test
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vercel Preview 배포
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./
+          github-comment: true
+
+  production:
+    name: Production 배포
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vercel Production 배포
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: "--prod"
+          working-directory: ./
