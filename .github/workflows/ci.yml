@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI Pipeline
 
 on:
   push:
@@ -7,94 +7,28 @@ on:
     branches: [main, develop]
 
 jobs:
-  # 1단계: 코드 품질 검증
   test:
-    name: 코드 품질 검증 및 빌드 테스트
+    name: 코드 품질 검증
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: pnpm 설치
-        uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v4
         with:
           version: 9.0.0
 
-      - name: Node.js 설정
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "pnpm"
 
-      - name: 의존성 설치
-        run: pnpm install
+      - run: pnpm install
 
-      - name: 린트 검사
-        run: pnpm run lint
+      - name: 린트 & 타입 체크
+        run: |
+          pnpm run lint --filter=web
+          pnpm run type-check --filter=web
 
       - name: 빌드 테스트
-        run: pnpm run build
-
-  # 2단계: PR 미리보기 배포
-  preview:
-    name: PR 미리보기 배포
-    needs: test
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: pnpm 설치
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9.0.0
-
-      - name: Node.js 설정
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
-
-      - name: 의존성 설치
-        run: pnpm install
-
-      - name: Vercel Preview 배포
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: "--prod"
-
-  # 3단계: 프로덕션 배포
-  production:
-    name: 프로덕션 배포
-    needs: test
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: pnpm 설치
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9.0.0
-
-      - name: Node.js 설정
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
-
-      - name: 의존성 설치
-        run: pnpm install
-
-      - name: Vercel 프로덕션 배포
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: "--prod"
+        run: pnpm run build --filter=web
+# 배포는 Vercel Git Integration에 맡김
