@@ -12,19 +12,34 @@ const menuItems = [
 ];
 
 export default function MyPageScreen() {
+  const user = {
+    id: 1,
+    name: "홍길동",
+    email: "honggildong@example.com",
+    imageUrl: "",
+  };
+  const isLoggedOut = false;
+
   return (
     <div className="min-h-screen bg-gray-50">
       <MyPageHeader />
 
       <main className="mx-auto max-w-md pt-16 pb-20">
-        <Profile />
-        {menuItems.map((item) => (
-          <MyPageMenuItem
-            key={item.label}
-            icon={item.icon}
-            label={item.label}
-          />
-        ))}
+        {user ? (
+          <>
+            <Profile user={user} />
+            {!isLoggedOut &&
+              menuItems.map((item) => (
+                <MyPageMenuItem
+                  key={item.label}
+                  icon={item.icon}
+                  label={item.label}
+                />
+              ))}
+          </>
+        ) : (
+          <Profile user={null} />
+        )}
       </main>
     </div>
   );
