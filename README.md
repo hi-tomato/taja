@@ -1,135 +1,82 @@
-# Turborepo starter
+# 📚 Taja 문서 가이드
 
-This Turborepo starter is maintained by the Turborepo core team.
+이 폴더는 Taja 프로젝트의 상세 문서들을 포함합니다.
 
-## Using this example
+## 📖 문서 목록
 
-Run the following command:
+### 🏗️ [아키텍처 가이드](/docs/architecture.md)
 
-```sh
-npx create-turbo@latest
+- 전체 시스템 아키텍처
+- 모듈별 상세 구조
+- 데이터베이스 설계
+- 보안 아키텍처
+- 성능 최적화 전략
+- 모니터링 및 로깅
+
+### 🛠️ [기술 스택 상세](/docs/tech-stack.md)
+
+- Frontend 기술 스택 (Next.js, Expo)
+- Backend 기술 스택 (Spring Boot)
+- 공통 패키지 구조
+- 개발 도구 설정
+- 환경 변수 설정
+- 성능 최적화
+
+### 🚴‍♂️ [주요 기능 상세](/docs/features.md)
+
+- 지도 기능
+- 대여소 상세 정보
+- 이용 통계 및 시각화
+- 사용자 인증 및 프로필
+- 실시간 채팅 시스템
+- 고급 기능
+- 사용자 경험 최적화
+
+## 🚀 빠른 시작
+
+### 개발 환경 설정
+
+```bash
+# 의존성 설치
+pnpm install
+
+# 개발 서버 실행
+pnpm dev
+
+# 특정 앱만 실행
+pnpm dev --filter=web
+pnpm dev --filter=mobile
+pnpm dev --filter=backend
 ```
 
-## What's inside?
+### 환경 변수 설정
 
-This Turborepo includes the following packages/apps:
+각 앱별로 필요한 환경 변수를 설정하세요:
 
-### Apps and Packages
+- **웹앱**: `.env.local`
+- **모바일앱**: `app.config.js`
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+## 📋 개발 가이드라인
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+### 코드 스타일
 
-### Utilities
+- **TypeScript** 우선 사용
+- **ESLint + Prettier** 설정 준수
+- **커밋 메시지**: Conventional Commits 규칙
+- **브랜치 네이밍**: `feat/`, `fix/`, `chore/` + 이슈 번호
 
-This Turborepo has some additional tools already setup for you:
+### 아키텍처 원칙
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+- **코드 재사용성**: Headless Component + Thin Wrapper 패턴
+- **플랫폼 분리**: 공통 로직은 packages에, UI는 앱별로 분리
+- **타입 안정성**: Zod 스키마로 런타임 검증
+- **성능 최적화**: React Query 캐싱, 코드 스플리팅
 
-### Build
+## 🔧 개발 도구
 
-To build all apps and packages, run the following command:
+### 필수 도구
 
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
-```
-
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+- **Node.js**: 18.x 이상
+- **pnpm**: 패키지 매니저
+- **Docker**: PostgreSQL, Redis
+- **IDE**: VS Code (권장)
