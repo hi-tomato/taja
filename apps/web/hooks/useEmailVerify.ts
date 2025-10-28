@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { EmailVerifyStatus } from "../types/signup";
-import { VALIDATION_MESSAGES } from "../constants/signup";
+import { EmailVerifyStatus } from "@/types/signup";
+import { VALIDATION_MESSAGES } from "@/constants/signup";
 
 export const useEmailVerify = () => {
   const [verifyStatus, setVerifyStatus] = useState<EmailVerifyStatus>({

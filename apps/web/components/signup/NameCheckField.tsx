@@ -1,9 +1,9 @@
 import React from "react";
 import { Check } from "lucide-react";
-import { FormField } from "../ui/FormField";
-import { Button } from "../ui/Button";
-import { NameCheckFieldProps } from "../../types/signup";
-import { BUTTON_TEXT, PLACEHOLDERS } from "../../constants/signup";
+import { FormField } from "@/components/ui/FormField";
+import { Button } from "@/components/ui/Button";
+import { NameCheckFieldProps } from "@/types/signup";
+import { BUTTON_TEXT, PLACEHOLDERS } from "@/constants/signup";
 
 export const NameCheckField: React.FC<NameCheckFieldProps> = ({
   value,

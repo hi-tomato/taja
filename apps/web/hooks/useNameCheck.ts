@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { NameCheckStatus } from "../types/signup";
-import { VALIDATION_MESSAGES } from "../constants/signup";
+import { NameCheckStatus } from "@/types/signup";
+import { VALIDATION_MESSAGES } from "@/constants/signup";
 
 export const useNameCheck = () => {
   const [checkStatus, setCheckStatus] = useState<NameCheckStatus>({

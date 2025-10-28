@@ -1,7 +1,7 @@
 import React from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { InputField } from "./InputField";
-import { PasswordFieldProps } from "../../types/signup";
+import { PasswordFieldProps } from "@/types/signup";
 
 export const PasswordField: React.FC<PasswordFieldProps> = ({
   label,

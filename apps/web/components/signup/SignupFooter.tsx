@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { BUTTON_TEXT } from "../../constants/signup";
+import { BUTTON_TEXT } from "@/constants/signup";
 
 export const SignupFooter: React.FC = () => {
   return (

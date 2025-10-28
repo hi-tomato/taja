@@ -1,8 +1,8 @@
 import React from "react";
-import { FormField } from "../ui/FormField";
-import { Button } from "../ui/Button";
-import { EmailVerifyFieldProps } from "../../types/signup";
-import { BUTTON_TEXT, PLACEHOLDERS } from "../../constants/signup";
+import { FormField } from "@/components/ui/FormField";
+import { Button } from "@/components/ui/Button";
+import { EmailVerifyFieldProps } from "@/types/signup";
+import { BUTTON_TEXT, PLACEHOLDERS } from "@/constants/signup";
 
 export const EmailVerifyField: React.FC<EmailVerifyFieldProps> = ({
   value,

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SignupFormData } from "../types/signup";
-import { SignupSchema, SIGNUP_DEFAULT_VALUES } from "../constants/signup";
+import { SignupFormData } from "@/types/signup";
+import { SignupSchema, SIGNUP_DEFAULT_VALUES } from "@/constants/signup";
 
 export const useSignupForm = () => {
   const [isLoading, setIsLoading] = useState(false);

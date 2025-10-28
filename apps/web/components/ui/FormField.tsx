@@ -1,6 +1,6 @@
 import React from "react";
 import { InputField } from "./InputField";
-import { FormFieldProps } from "../../types/signup";
+import { FormFieldProps } from "@/types/signup";
 
 export const FormField: React.FC<FormFieldProps> = ({
   label,

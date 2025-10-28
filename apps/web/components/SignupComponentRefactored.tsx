@@ -1,5 +1,10 @@
 import React from "react";
-import { SignupHeader, SignupHero, SignupForm, SignupFooter } from "./signup";
+import {
+  SignupHeader,
+  SignupHero,
+  SignupForm,
+  SignupFooter,
+} from "@/components/signup";
 
 export default function SignupComponentRefactored() {
   return (
