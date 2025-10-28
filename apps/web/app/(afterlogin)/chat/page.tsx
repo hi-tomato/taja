@@ -1,6 +1,6 @@
-import ChatCounter from "@/components/ui/ChatCounter";
-import MyPageHeader from "@/components/ui/MyPageHeader";
-import { chatMockData } from "@/constant/mock";
+import { ChatCounter } from "@/components/ui/chat/ChatCounter";
+import { MyPageHeader } from "@/components/ui/mypage/MyPageHeader";
+import { chatMockData } from "@/constants/mock";
 import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 

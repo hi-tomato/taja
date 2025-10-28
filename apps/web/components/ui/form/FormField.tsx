@@ -1,16 +1,15 @@
 import React from "react";
-import { Eye, EyeOff } from "lucide-react";
-import { InputField } from "./InputField";
-import { PasswordFieldProps } from "@/types/signup";
+import { InputField } from "@/components/ui/base/InputField";
+import { FormFieldProps } from "@/types/signup";
 
-export const PasswordField: React.FC<PasswordFieldProps> = ({
+export const FormField: React.FC<FormFieldProps> = ({
   label,
   id,
+  type,
   placeholder,
   error,
   helperText,
-  showPassword,
-  onToggleVisibility,
+  rightButton,
   className,
   value,
   onChange,
@@ -25,29 +24,18 @@ export const PasswordField: React.FC<PasswordFieldProps> = ({
         {label}
       </label>
       <div className="space-y-2">
-        <div className="relative">
+        <div className="flex gap-2">
           <InputField
             id={id}
-            type={showPassword ? "text" : "password"}
+            type={type}
             placeholder={placeholder}
             value={value}
             onChange={(e) => onChange?.(e.target.value)}
             variant="outline"
-            className="w-full pr-12"
+            className="flex-1"
             {...props}
           />
-          <button
-            type="button"
-            onClick={onToggleVisibility}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-            aria-label={showPassword ? "비밀번호 숨기기" : "비밀번호 보기"}
-          >
-            {showPassword ? (
-              <EyeOff className="h-5 w-5" />
-            ) : (
-              <Eye className="h-5 w-5" />
-            )}
-          </button>
+          {rightButton}
         </div>
         {error && (
           <p className="text-xs text-red-600" role="alert">

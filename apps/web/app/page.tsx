@@ -1,8 +1,5 @@
 import React from "react";
-import { Button } from "@/components/ui/Button";
-import { InputField } from "@/components/ui/InputField";
-import { FixedButton } from "@/components/ui/FixedButton";
-import { FixedFooter } from "@/components/ui/FixedFooter";
+import { Button, InputField, FixedButton, FixedFooter } from "@/components/ui";
 
 export default function Home() {
   return (

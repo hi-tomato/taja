@@ -1,11 +1,11 @@
 "use client";
 import { Button, InputField } from "@/components/ui";
-import MyPageHeader from "@/components/ui/MyPageHeader";
-import { chatMessageMockData } from "@/constant/mock";
+import { MyPageHeader } from "@/components/ui/mypage/MyPageHeader";
+import { chatMessageMockData } from "@/constants/mock";
 import { SendHorizonalIcon } from "lucide-react";
 import React, { useState } from "react";
 
-export default function ChattingRoomContent({ id }: { id: string }) {
+export const ChattingRoomContent = ({ id }: { id: string }) => {
   const [sendMessage, setSendMessage] = useState("");
   const [chatMessages, setChatMessages] = useState(chatMessageMockData);
 
@@ -107,4 +107,4 @@ export default function ChattingRoomContent({ id }: { id: string }) {
       </div>
     </div>
   );
-}
+};

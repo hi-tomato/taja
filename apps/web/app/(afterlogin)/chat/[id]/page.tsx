@@ -1,4 +1,4 @@
-import ChattingRoomContent from "@/components/ui/ChattingRoomContent";
+import { ChattingRoomContent } from "@/components/ui/chat/ChattingRoomContent";
 
 export default function ChattingRoomPage() {
   // const { id } = await params;

@@ -1,6 +1,6 @@
 import React from "react";
-import { FormField } from "@/components/ui/FormField";
-import { Button } from "@/components/ui/Button";
+import { FormField } from "@/components/ui/form/FormField";
+import { Button } from "@/components/ui/base/Button";
 import { EmailVerifyFieldProps } from "@/types/signup";
 import { BUTTON_TEXT, PLACEHOLDERS } from "@/constants/signup";
 

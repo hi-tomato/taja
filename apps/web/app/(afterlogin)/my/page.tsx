@@ -1,9 +1,9 @@
 import { LogOut, MessageCircle, Moon, Settings } from "lucide-react";
 import React from "react";
-import Profile from "@/components/ui/Profile";
-import MyPageHeader from "@/components/ui/MyPageHeader";
-import MyPageMenuItem from "@/components/ui/MyPageMenuItem";
-import { user } from "@/constant/mock";
+import { Profile } from "@/components/ui/mypage/Profile";
+import { MyPageHeader } from "@/components/ui/mypage/MyPageHeader";
+import { MyPageMenuItem } from "@/components/ui/mypage/MyPageMenuItem";
+import { user } from "@/constants/mock";
 
 const menuItems = [
   { icon: <MessageCircle className="h-5 w-5" />, label: "참여한 채팅방" },

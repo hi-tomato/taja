@@ -7,7 +7,7 @@ import { Eye, EyeOff, Check } from "lucide-react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import MyPageHeader from "./ui/MyPageHeader";
+import { MyPageHeader } from "@/components/ui/mypage/MyPageHeader";
 
 const SignUpSchema = z
   .object({

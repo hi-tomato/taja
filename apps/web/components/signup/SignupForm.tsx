@@ -1,8 +1,6 @@
 import React from "react";
 import { FormProvider } from "react-hook-form";
 import { Check } from "lucide-react";
-import { Button } from "@/components/ui/Button";
-import { PasswordField } from "@/components/ui/PasswordField";
 import { NameCheckField } from "./NameCheckField";
 import { EmailVerifyField } from "./EmailVerifyField";
 import { useSignupForm } from "@/hooks/useSignupForm";
@@ -10,6 +8,8 @@ import { useNameCheck } from "@/hooks/useNameCheck";
 import { useEmailVerify } from "@/hooks/useEmailVerify";
 import { SignupFormData } from "@/types/signup";
 import { BUTTON_TEXT, VALIDATION_MESSAGES } from "@/constants/signup";
+import { Button } from "@/components/ui/base/Button";
+import { PasswordField } from "@/components/ui/form/PasswordField";
 
 export const SignupForm: React.FC = () => {
   const {
