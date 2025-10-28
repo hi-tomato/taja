@@ -7,7 +7,7 @@ import { FixedFooter } from "@/components/ui/FixedFooter";
 export default function Home() {
   return (
     <div>
-      <Button appName="web">Click me</Button>
+      <Button>Click me</Button>
       <InputField />
       <FixedButton>Click me</FixedButton>
       <FixedFooter />
