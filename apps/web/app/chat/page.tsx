@@ -13,12 +13,12 @@ export default function ChatPage() {
           {chatMockData.length > 0 ? (
             chatMockData.map((chat) => (
               <Link
-                key={chat.id}
-                href={`/chat/${chat.id}`}
+                key={chat.chatRoomId}
+                href={`/chat/${chat.chatRoomId}`}
                 className="flex items-center gap-4 border-b border-gray-100 px-4 py-4 transition-colors hover:bg-gray-50"
               >
                 {/* Avatar */}
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-500">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-purple-500">
                   <MessageCircle className="h-6 w-6 text-white" />
                 </div>
 
@@ -26,16 +26,16 @@ export default function ChatPage() {
                 <div className="min-w-0 flex-1">
                   <div className="mb-1 flex items-center justify-between">
                     <h2 className="truncate text-base font-semibold text-gray-900">
-                      {chat.title}
+                      {chat.stationName}
                     </h2>
                   </div>
                   <p className="truncate text-sm text-gray-600">
-                    {chat.description}
+                    대여소 ID: {chat.stationId}
                   </p>
                 </div>
 
-                {/* Unread Counter */}
-                {chat.count > 0 && <ChatCounter count={chat.count} />}
+                {/* Unread Counter - 임시로 표시 */}
+                <ChatCounter count={Math.floor(Math.random() * 5)} />
               </Link>
             ))
           ) : (
