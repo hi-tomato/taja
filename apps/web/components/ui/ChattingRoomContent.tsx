@@ -97,7 +97,6 @@ export default function ChattingRoomContent({ id }: { id: string }) {
 
           {/* 전송 버튼 */}
           <Button
-            appName="send"
             variant="primary"
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full p-0"
             onClick={handleSendClick}
