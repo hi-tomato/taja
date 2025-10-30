@@ -1,5 +1,5 @@
-import React from "react";
+import MapComponent from "@/components/map/MapComponent";
 
 export default function MapScreenPage() {
-  return <div>MapScreenPage</div>;
+  return <MapComponent />;
 }
