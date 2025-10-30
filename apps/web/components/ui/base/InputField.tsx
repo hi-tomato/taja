@@ -5,6 +5,7 @@ interface InputFieldProps
   label?: string;
   placeholder?: string;
   error?: string;
+  rightElement?: ReactNode;
   icon?: ReactNode;
   size?: "sm" | "md" | "lg";
   variant?: "outline" | "filled" | "unstyled";
@@ -18,6 +19,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       placeholder,
       error,
       icon,
+      rightElement,
       size = "md",
       variant = "outline",
       className,
@@ -55,6 +57,9 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           aria-invalid={!!error}
           className={`w-full transition-colors disabled:bg-gray-50 disabled:text-gray-500 ${sizeClass[size]} ${variantClass[variant]} ${className}`}
         />
+        {rightElement && (
+          <div className="absolute right-0 top-0">{rightElement}</div>
+        )}
         {error && (
           <p className="mt-1 text-sm text-red-500" role="alert">
             {error}
