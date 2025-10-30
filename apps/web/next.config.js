@@ -8,7 +8,7 @@ const nextConfig = {
   generateEtags: false,
   // React Compiler 활성화
   reactCompiler: {
-    compilationMode: "annotation",
+    compilationMode: "automatic",
   },
 };
 
