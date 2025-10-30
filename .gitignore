@@ -40,3 +40,7 @@ yarn-error.log*
 # Cursor
 .cursor/
 .cursor/*
+
+# VSCode
+.vscode/*
+.vscode/settings.json
