@@ -1,8 +1,7 @@
 import React, { ButtonHTMLAttributes, ReactNode } from "react";
-import { Button } from "./Button";
+import { Button } from "@/components/ui/base/Button";
 
 interface FixedButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  appName?: string;
   size?: "sm" | "md" | "lg";
   variant?: "primary" | "secondary" | "ghost" | "link";
   disabled?: boolean;
@@ -11,7 +10,6 @@ interface FixedButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
 export const FixedButton = ({
-  appName = "web",
   children,
   position = "bottom-right",
   className,
@@ -19,9 +17,7 @@ export const FixedButton = ({
 }: FixedButtonProps) => {
   return (
     <div className={`fixed ${position} ${className}`}>
-      <Button appName={appName} {...props}>
-        {children}
-      </Button>
+      <Button {...props}>{children}</Button>
     </div>
   );
 };

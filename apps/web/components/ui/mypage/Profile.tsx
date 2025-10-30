@@ -12,7 +12,7 @@ interface ProfileProps {
   } | null;
 }
 
-export default function Profile({ user }: ProfileProps) {
+export const Profile = ({ user }: ProfileProps) => {
   return (
     <div className="mb-2 bg-white p-6">
       {user ? (
@@ -58,4 +58,4 @@ export default function Profile({ user }: ProfileProps) {
       )}
     </div>
   );
-}
+};

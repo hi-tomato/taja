@@ -7,7 +7,7 @@ interface MyPageHeaderProps {
   href: string;
 }
 
-export default function MyPageHeader({ title, href }: MyPageHeaderProps) {
+export const MyPageHeader = ({ title, href }: MyPageHeaderProps) => {
   return (
     <header className="fixed top-0 right-0 left-0 z-50 border-b border-gray-200 bg-white">
       <div className="mx-auto flex max-w-md items-center justify-between px-4 py-3">
@@ -24,4 +24,4 @@ export default function MyPageHeader({ title, href }: MyPageHeaderProps) {
       </div>
     </header>
   );
-}
+};

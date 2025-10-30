@@ -7,7 +7,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: ReactNode;
   size?: "sm" | "md" | "lg";
   variant?: "primary" | "secondary" | "ghost" | "link";
-  appName: string;
   loading?: boolean;
   disabled?: boolean;
 }
@@ -17,7 +16,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     {
       children,
       className,
-      appName,
       icon,
       size = "md",
       variant = "primary",
@@ -45,7 +43,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={`disabled:cursor-not-allowed flex items-center justify-center gap-2 disabled:opacity-50 rounded-lg transition-colors font-medium ${sizeClass[size]} ${variantClass[variant]} ${className}`}
-        onClick={() => alert(`Hello from your ${appName} app!`)}
         disabled={disabled}
         {...props}
       >

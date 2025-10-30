@@ -6,6 +6,10 @@ const nextConfig = {
   // Vercel 배포 최적화
   trailingSlash: false,
   generateEtags: false,
+  // React Compiler 활성화
+  reactCompiler: {
+    compilationMode: "annotation",
+  },
 };
 
 export default nextConfig;

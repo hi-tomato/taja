@@ -7,11 +7,11 @@ interface MyPageMenuItemProps {
   variant?: "default" | "danger";
 }
 
-export default function MyPageMenuItem({
+export const MyPageMenuItem = ({
   icon,
   label,
   onClick,
-}: MyPageMenuItemProps) {
+}: MyPageMenuItemProps) => {
   return (
     <div className="bg-white">
       <button
@@ -25,4 +25,4 @@ export default function MyPageMenuItem({
       </button>
     </div>
   );
-}
+};
