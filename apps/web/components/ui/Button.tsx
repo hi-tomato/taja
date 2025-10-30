@@ -28,22 +28,23 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const sizeClass = {
-      sm: "",
-      md: "",
-      lg: "",
+      sm: "px-3 py-2 text-sm",
+      md: "px-4 py-3 text-base",
+      lg: "px-6 py-4 text-lg",
     };
 
     const variantClass = {
-      primary: "",
-      secondary: "",
-      ghost: "",
-      link: "",
+      primary: "bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700",
+      secondary:
+        "bg-gray-200 text-gray-900 hover:bg-gray-300 active:bg-gray-400",
+      ghost: "text-gray-700 hover:bg-gray-100 active:bg-gray-200",
+      link: "text-blue-500 hover:text-blue-600 underline",
     };
 
     return (
       <button
         ref={ref}
-        className={`disabled:cursor-not-allowed} flex w-full items-center justify-center gap-2 disabled:opacity-50 ${sizeClass[size]} ${variantClass[variant]} ${className}`}
+        className={`disabled:cursor-not-allowed flex items-center justify-center gap-2 disabled:opacity-50 rounded-lg transition-colors font-medium ${sizeClass[size]} ${variantClass[variant]} ${className}`}
         onClick={() => alert(`Hello from your ${appName} app!`)}
         disabled={disabled}
         {...props}

@@ -3,6 +3,7 @@ import React from "react";
 import Profile from "@/components/ui/Profile";
 import MyPageHeader from "@/components/ui/MyPageHeader";
 import MyPageMenuItem from "@/components/ui/MyPageMenuItem";
+import { user } from "@/constant/mock";
 
 const menuItems = [
   { icon: <MessageCircle className="h-5 w-5" />, label: "참여한 채팅방" },
@@ -11,18 +12,12 @@ const menuItems = [
   { icon: <LogOut className="h-5 w-5" />, label: "로그아웃" },
 ];
 
-export default function MyPageScreen() {
-  const user = {
-    id: 1,
-    name: "홍길동",
-    email: "honggildong@example.com",
-    imageUrl: "",
-  };
-  const isLoggedOut = false;
+const isLoggedOut = false;
 
+export default function MyPageScreen() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <MyPageHeader />
+      <MyPageHeader title="마이페이지" href="/" />
 
       <main className="mx-auto max-w-md pt-16 pb-20">
         {user ? (

@@ -27,15 +27,17 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     ref
   ) => {
     const sizeClass = {
-      sm: "",
-      md: "",
-      lg: "",
+      sm: "px-3 py-2 text-sm",
+      md: "px-4 py-3 text-base",
+      lg: "px-5 py-4 text-lg",
     };
 
     const variantClass = {
-      outline: "",
-      filled: "",
-      unstyled: "",
+      outline:
+        "border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+      filled:
+        "bg-gray-100 border-0 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white",
+      unstyled: "border-0 bg-transparent focus:outline-none",
     };
 
     return (
@@ -51,7 +53,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           {...props}
           disabled={disabled}
           aria-invalid={!!error}
-          className={`w-full ${sizeClass[size]} ${variantClass[variant]} ${className}`}
+          className={`w-full transition-colors disabled:bg-gray-50 disabled:text-gray-500 ${sizeClass[size]} ${variantClass[variant]} ${className}`}
         />
         {error && (
           <p className="mt-1 text-sm text-red-500" role="alert">
