@@ -1,6 +1,16 @@
 import { Map, useMap } from "@vis.gl/react-google-maps";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Marker from "./Marker";
+import MarkerDetailSheet from "./MarkerDetailSheet";
+
+type MarkerData = {
+  id: string;
+  position: { lat: number; lng: number };
+  label: string;
+  address: string;
+  distance: number;
+  bikeCount: number;
+};
 
 interface InnerMapProps {
   currentLocation: { lat: number; lng: number };
@@ -17,6 +27,8 @@ export default function InnerMap({
   currentLocation,
   onActionsReady,
 }: InnerMapProps) {
+  const [selectedMarker, setSelectedMarker] = useState<MarkerData | null>(null);
+
   const map = useMap("main-map");
   const ZOOM = currentLocation ? 15 : 12;
   const CENTER = useMemo(() => currentLocation ?? SEOUL, [currentLocation]);
@@ -29,6 +41,11 @@ export default function InnerMap({
 
   const handleRefreshLocation = useCallback(() => {
     window.location.reload();
+  }, []);
+
+  const handleClickMarker = useCallback((markerData: MarkerData) => {
+    // TODO: 마커 클릭 시 상세 정보 표시
+    setSelectedMarker(markerData);
   }, []);
 
   useEffect(() => {
@@ -55,10 +72,26 @@ export default function InnerMap({
         <Marker
           position={{ lat: 37.5665, lng: 126.978 }}
           label="시청"
-          selected={true}
-          onClick={() => console.log("clicked!")}
+          onClick={() =>
+            handleClickMarker({
+              id: "1",
+              position: { lat: 37.5665, lng: 126.978 },
+              label: "시청",
+              address: "서울특별시 중구 세종대로 110",
+              distance: 100,
+              bikeCount: 10,
+            })
+          }
+          selected={selectedMarker?.id === "1"}
         />
       </Map>
+
+      {selectedMarker && (
+        <MarkerDetailSheet
+          marker={selectedMarker}
+          onClose={() => setSelectedMarker(null)}
+        />
+      )}
     </>
   );
 }
