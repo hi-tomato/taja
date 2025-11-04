@@ -1,3 +1,4 @@
+"use client";
 import { formatDate } from "@/app/utils/day";
 import { chartData, chartOptions } from "@/constants/chart";
 import {
@@ -14,6 +15,7 @@ import {
 } from "chart.js";
 
 import { HelpCircle, RefreshCw } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Chart } from "react-chartjs-2";
 interface MarkerDetailSheetProps {
   marker: {
@@ -26,6 +28,7 @@ interface MarkerDetailSheetProps {
     stationId?: string;
   };
   onClose: () => void;
+  variant?: "modal" | "page";
 }
 
 ChartJS.register(
@@ -43,9 +46,12 @@ ChartJS.register(
 export default function MarkerDetailSheet({
   marker,
   onClose,
+  variant = "modal",
 }: MarkerDetailSheetProps) {
+  const router = useRouter();
   const currentTime = new Date();
   const formatted = formatDate(currentTime, "YYYY.MM.DD HH:mm 기준");
+  const isModal = variant === "modal";
 
   const handleRefresh = () => {
     // TODO: 데이터 새로고침 로직 구현
@@ -58,21 +64,29 @@ export default function MarkerDetailSheet({
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-2xl shadow-lg animate-slide-up max-h-[90vh] overflow-y-auto">
-      {/* 드래그 핸들 */}
-      <div className="w-12 h-1 bg-gray-300 rounded-full mx-auto mt-3 mb-4" />
-
-      {/* 닫기 버튼 */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 w-8 h-8 flex items-center justify-center"
-        aria-label="닫기"
-      >
-        ✕
-      </button>
+    <div
+      className={
+        isModal
+          ? "fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-2xl shadow-lg animate-slide-up max-h-[90vh] overflow-y-auto"
+          : "w-full h-full bg-white rounded-2xl shadow-lg"
+      }
+      onClick={() => {
+        localStorage.setItem("marker", JSON.stringify(marker));
+        router.push(`/map/${marker.id}/detail`);
+      }}
+    >
+      {isModal && (
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 w-8 h-8 flex items-center justify-center"
+          aria-label="닫기"
+        >
+          ✕
+        </button>
+      )}
 
       {/* 상단 정보 섹션 */}
-      <div className="px-4 pt-2 pb-4">
+      <div className={`px-4 ${isModal ? "pt-2" : "pt-6"} pb-4`}>
         <div className="flex items-start justify-between mb-4">
           {/* 왼쪽: 제목, 주소, ID */}
           <div className="flex-1">

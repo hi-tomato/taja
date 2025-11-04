@@ -5,7 +5,18 @@ import { chatMessageMockData } from "@/constants/mock";
 import { SendHorizonalIcon } from "lucide-react";
 import React, { useState } from "react";
 
-export const ChattingRoomContent = ({ id }: { id: string }) => {
+interface ChattingRoomContentProps {
+  id: string;
+  variant?: "page" | "thumbnail";
+}
+
+export const ChattingRoomContent = ({
+  id,
+  variant = "page",
+}: ChattingRoomContentProps) => {
+  const isPage = variant === "page";
+  const isThumbnail = variant === "thumbnail";
+
   const [sendMessage, setSendMessage] = useState("");
   const [chatMessages, setChatMessages] = useState(chatMessageMockData);
 
@@ -31,7 +42,7 @@ export const ChattingRoomContent = ({ id }: { id: string }) => {
   return (
     <div className="flex h-screen flex-col bg-gray-50">
       {/* 헤더 */}
-      <MyPageHeader title={`채팅방 #${id}`} href="/chat" />
+      {isPage && <MyPageHeader title={`채팅방 #${id}`} href="/chat" />}
 
       {/* 채팅 메시지 영역 */}
       <div className="flex-1 space-y-4 overflow-y-auto px-4 py-6 pt-20">
@@ -92,6 +103,7 @@ export const ChattingRoomContent = ({ id }: { id: string }) => {
               className="max-h-[120px] min-h-[44px] resize-none rounded-full pr-12"
               value={sendMessage}
               onChange={handleSendMessage}
+              disabled={isThumbnail}
             />
           </div>
 
@@ -100,6 +112,7 @@ export const ChattingRoomContent = ({ id }: { id: string }) => {
             variant="primary"
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full p-0"
             onClick={handleSendClick}
+            disabled={isThumbnail}
           >
             <SendHorizonalIcon className="h-5 w-5" />
           </Button>
